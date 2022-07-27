@@ -966,16 +966,17 @@ Snap.plugin(function (Snap, Element, Paper, glob) {
                         path = ["C"].concat(q2c(d.x, d.y, path[1], path[2], path[3], path[4]));
                         break;
                     case "L":
-                        path = ["C"].concat(l2c(d.x, d.y, path[1], path[2]));
+                        path = ["L"].concat([path[1], path[2]]);
                         break;
                     case "H":
-                        path = ["C"].concat(l2c(d.x, d.y, path[1], d.y));
+                        path = ["L"].concat([path[1], d.y]);
                         break;
                     case "V":
-                        path = ["C"].concat(l2c(d.x, d.y, d.x, path[1]));
+                        path = ["L"].concat([d.x, path[1]]);
+
                         break;
                     case "Z":
-                        path = ["C"].concat(l2c(d.x, d.y, d.X, d.Y));
+                        path = ["Z"].concat([d.X,d.Y]);
                         break;
                 }
                 return path;
@@ -1007,6 +1008,7 @@ Snap.plugin(function (Snap, Element, Paper, glob) {
             pcoms2 = [], // path commands of original path p2
             pfirst = "", // temporary holder for original path command
             pcom = ""; // holder for previous path command of original path
+        
         for (var i = 0, ii = mmax(p.length, p2 && p2.length || 0); i < ii; i++) {
             p[i] && (pfirst = p[i][0]); // save current path command
 
